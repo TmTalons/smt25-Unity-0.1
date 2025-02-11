@@ -9,6 +9,8 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         playerCurrentHealth = playerMaxHealth;
+        //update the ui once
+        UIManager.instance.UpdateHealth(this);
     }
 
     public void TakeDamage(float damage)
@@ -18,8 +20,12 @@ public class PlayerHealth : MonoBehaviour
         if (playerCurrentHealth <= 0)
         {
             Debug.Log("Player has died!");
+
+            GetComponent<PlayerController>().enabled = false;
             
         }
+
+        UIManager.instance.UpdateHealth(this);
     }
 
 }
