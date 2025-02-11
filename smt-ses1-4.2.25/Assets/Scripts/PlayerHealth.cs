@@ -28,4 +28,14 @@ public class PlayerHealth : MonoBehaviour
         UIManager.instance.UpdateHealth(this);
     }
 
+    public void Heal(float healing)
+    {
+        playerCurrentHealth += healing;
+
+        if (playerCurrentHealth >= playerMaxHealth)
+        {
+            playerCurrentHealth = playerMaxHealth;
+        }
+        UIManager.instance.UpdateHealth(this);
+    }
 }

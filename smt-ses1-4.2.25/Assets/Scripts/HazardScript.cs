@@ -12,17 +12,4 @@ public class HazardScript : MonoBehaviour
             other.GetComponent<PlayerHealth>().TakeDamage(damage);
         }
     }
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
