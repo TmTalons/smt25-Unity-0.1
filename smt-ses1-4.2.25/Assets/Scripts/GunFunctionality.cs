@@ -23,7 +23,7 @@ public class GunFunctionality : MonoBehaviour
         {
 
             //creates a new instance of the bullet type assigned to the script
-            Instantiate(bulletType);
+            Instantiate(bulletType, transform.position, transform.rotation);
             //takes away a single bullet after firing
             bulletCountInMagazine -= 1;
         }
