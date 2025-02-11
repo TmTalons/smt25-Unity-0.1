@@ -1,13 +1,20 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public bool DebuggingTool = true;
+    public static UIManager instance;
+    public Image healthBar;
+    public Text healthText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+        }
     }
 
     // Update is called once per frame
@@ -21,6 +28,21 @@ public class UIManager : MonoBehaviour
                 Debug.Log("The game will Quit.");
             }
             Application.Quit();
+        }
+
+    }
+
+    //custom health update function
+    public void UpdateHealth(PlayerHealth health)
+    {
+        healthBar.fillAmount = health.playerCurrentHealth / health.playerMaxHealth;
+        if (health.playerCurrentHealth > 0)
+        {
+            healthText.text = "Health" + health.playerCurrentHealth;
+        }
+        else
+        {
+            healthText.text = "You Died";
         }
 
     }

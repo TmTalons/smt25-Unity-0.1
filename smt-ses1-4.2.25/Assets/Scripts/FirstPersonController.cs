@@ -8,7 +8,7 @@ public class FirstPersonController : MonoBehaviour
     public float sprintSpeed = 5.0f;
     public float gravity = 3.5f;
     public float jumpForce = 0.1f;
-    public float gravPull = 4.0f;
+    public float gravPull = 8.0f;
 
     private float currentSpeed = 0;
     private float velocity = 0;

@@ -30,9 +30,13 @@ public class MouseController : MonoBehaviour
 
 
         //Means the player cant look behind via looking up, looping and confusing the player.
-        result.y = Mathf.Clamp(result.y, -60, 89);
+        result.y = Mathf.Clamp(result.y, -89, 89);
 
         transform.localRotation = Quaternion.AngleAxis(-result.y, Vector3.right);
         characterTransform.rotation = Quaternion.AngleAxis(result.x, characterTransform.up);
+
+        
+
+
     }
 }
