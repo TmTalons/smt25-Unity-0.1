@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
     public Image healthBar;
     public Text healthText;
+    public Image reloadBar;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
@@ -46,4 +47,14 @@ public class UIManager : MonoBehaviour
         }
 
     }
+
+    public void UpdateReloadBar(GunFunctionality reload)
+    {
+        reloadBar.fillAmount = reload.reloadTimeR/reload.reloadT;
+        if (reload.reloadTimeR == reload.reloadT)
+        {
+            reloadBar.fillAmount = 0;
+        }
+    }
+
 }

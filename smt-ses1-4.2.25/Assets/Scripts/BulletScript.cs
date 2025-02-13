@@ -21,9 +21,12 @@ public class BulletScript : MonoBehaviour
         { 
             Object.Destroy(this.gameObject);
         }
+
+        
+
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision other)
     {
         //when the object hits another object, destroy this object
         Object.Destroy(this.gameObject);
