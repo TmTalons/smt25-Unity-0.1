@@ -104,6 +104,7 @@ MonoBehaviour:
   bulletSpeed: 50
   maxInstanceTime: 5
   instanceTimer: 0
+  damage: 25
 --- !u!136 &531331930226585237
 CapsuleCollider:
   m_ObjectHideFlags: 0

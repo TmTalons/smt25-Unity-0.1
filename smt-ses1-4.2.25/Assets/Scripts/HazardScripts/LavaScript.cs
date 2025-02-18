@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HazardScript : MonoBehaviour
+public class LavaScript : MonoBehaviour
 {
     public float damage = 10.0f;
 
@@ -9,7 +9,7 @@ public class HazardScript : MonoBehaviour
         if (other.tag == "Player")
         {
             Debug.Log("Dealt " + damage + " to player.");
-            other.GetComponent<PlayerHealth>().TakeDamage(damage);
+            other.GetComponent<PlayerHealth>().PlayerTakeDamage(damage);
         }
     }
 }

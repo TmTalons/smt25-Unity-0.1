@@ -8,7 +8,7 @@ public class GunFunctionality : MonoBehaviour
     [SerializeField] private int bulletCountInMagazine = 40;
     [SerializeField] private Text strMagazine;
     
-    public float reloadT = 3.0f; /*bulletsRechamberingSpeed = 0.1f,*/
+    public float reloadT = 3.0f; /*bulletsRechamberingSpeed = 0.1;*/
     public float reloadTimeR = 0.0f;
     public int reserveRounds = 160;
     public GameObject bulletType;
@@ -17,6 +17,8 @@ public class GunFunctionality : MonoBehaviour
     void Start()
     {
         strMagazine.text = bulletCountInMagazine.ToString();
+        //calls the UIManager script/class to update our reload bar
+        UIManager.instance.UpdateReloadBar(this);
     }
 
     // Update is called once per frame
@@ -53,21 +55,23 @@ public class GunFunctionality : MonoBehaviour
 
                 //updates the bullet count on screen
                 strMagazine.text = bulletCountInMagazine.ToString();
+                //calls the UIManager script/class to update our reload bar
                 UIManager.instance.UpdateReloadBar(this);
 
 
             }
         }
         //checks if out of bullets
+        //checks if reserve rounds are 0 AND the current magazine count is 0
         else if (reserveRounds == 0 && bulletCountInMagazine == 0)
         {
-            //for future: make this flash red!
+            /*for future: make this flash red!*/
             strMagazine.text = "No reserves!";
              
         }
 
     }
-
+    //new function called refillBullets that refills bullets according to the bullets argument
     public void refillBullets(int bullets)
     {
         reserveRounds += bullets;
