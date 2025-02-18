@@ -124,11 +124,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a47794be85382419fb186b416576df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
   playerTarget: {fileID: 0}
   mySpeed: 1
   attackSpeed: 3
   attackTimer: 0
   damage: 10
+  myHealth: 50
   thePlayer: {fileID: 0}
 --- !u!54 &-6733831642489884989
 Rigidbody:

@@ -11,6 +11,7 @@ public class GunFunctionality : MonoBehaviour
     public float reloadT = 3.0f, bulletsRechamberingSpeed = 0.5f, cRechamber = 0.0f;
     public float reloadTimeR = 0.0f;
     public int reserveRounds = 160;
+    public int magazineMax = 40;
     public GameObject bulletType;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -39,41 +40,28 @@ public class GunFunctionality : MonoBehaviour
             //updates the bullet count on sreen
             strMagazine.text = bulletCountInMagazine.ToString();
             cRechamber = 0.0f;
-            
+
 
         }
         //if the gun is empty, and the reload timer is less than the full reload time, reload.
-        else if (bulletCountInMagazine == 0 && reloadT != reloadTimeR && reserveRounds != 0)
+        else if (bulletCountInMagazine == 0 && (reserveRounds != 0))
         {
-            //Ticks the reload timer for the reload time
-            reloadTimeR += Time.deltaTime;
-            UIManager.instance.UpdateReloadBar(this);
 
+            reload();
 
-            if (reloadT <= reloadTimeR)
-            {
-                //fills the magazine to full (40 rounds)
-                bulletCountInMagazine = 40;
-                //then removes the amount of rounds in the gun from reserves
-                reserveRounds -= bulletCountInMagazine;
-                //reset the reload timer
-                reloadTimeR = 0.0f;
-
-                //updates the bullet count on screen
-                strMagazine.text = bulletCountInMagazine.ToString();
-                //calls the UIManager script/class to update our reload bar
-                UIManager.instance.UpdateReloadBar(this);
-
-
-            }
+        }
+        else if ((bulletCountInMagazine > 0) && (bulletCountInMagazine < 40) && (Input.GetButton("Reload") == true))
+        {
+            Debug.Log("Reloading");
+            reload();
         }
         //checks if out of bullets
         //checks if reserve rounds are 0 AND the current magazine count is 0
-        else if (reserveRounds == 0 && bulletCountInMagazine == 0)
+        else if (reserveRounds == 0 && (bulletCountInMagazine == 0))
         {
             /*for future: make this flash red!*/
             strMagazine.text = "No reserves!";
-             
+
         }
 
     }
@@ -81,5 +69,33 @@ public class GunFunctionality : MonoBehaviour
     public void refillBullets(int bullets)
     {
         reserveRounds += bullets;
+    }
+
+    public void reload()
+    {
+        //Ticks the reload timer for the reload time
+        reloadTimeR += Time.deltaTime;
+        UIManager.instance.UpdateReloadBar(this);
+
+
+        if (reloadT <= reloadTimeR)
+        {
+            //fills the magazine to full (magazineMax variable)
+            bulletCountInMagazine = magazineMax;
+
+
+            //then removes the amount of rounds in the gun from reserves
+            reserveRounds -= bulletCountInMagazine;
+            //reset the reload timer
+            reloadTimeR = 0.0f;
+
+            //updates the bullet count on screen
+            strMagazine.text = bulletCountInMagazine.ToString();
+            //calls the UIManager script/class to update our reload bar
+            UIManager.instance.UpdateReloadBar(this);
+
+
+        }
+
     }
 }
