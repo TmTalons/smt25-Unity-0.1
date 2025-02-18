@@ -8,7 +8,6 @@ public class MeleeEnemy : MonoBehaviour
     [SerializeField] private Transform playerTarget;
     [SerializeField] private float mySpeed = 1.0f, attackSpeed = 2.0f, attackTimer = 0.0f;
     [SerializeField] private float damage = 10;
-    [SerializeField] private float myHealth = 50;
     [SerializeField] private GameObject thePlayer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

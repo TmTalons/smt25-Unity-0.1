@@ -45,6 +45,14 @@ public class BulletScript : MonoBehaviour
             //references the colliding object's -> gameobject -> grab a specific component -> runs damage function after finding it
             other.gameObject.GetComponent<PlayerHealth>().PlayerTakeDamage(damage);
         }
+
+        if (other.gameObject.tag == "Enemy")
+        {
+            other.gameObject.GetComponent<EnemyHealthScript>().EnemyTakeDamage(damage);
+        }
+
+        
+        
         //destroys this game object, deleting it from the scene. our bullet shouldnt exist after this runs anyway.
         Object.Destroy(this.gameObject);
         
