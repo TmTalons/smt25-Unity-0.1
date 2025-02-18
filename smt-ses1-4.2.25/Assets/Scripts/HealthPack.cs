@@ -3,6 +3,7 @@ using UnityEngine;
 public class HealthPack : MonoBehaviour
 {
     public float healing = 5.0f;
+    [SerializeField] bool destroyOnInteract = true;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private void OnTriggerEnter(Collider other)
@@ -10,7 +11,10 @@ public class HealthPack : MonoBehaviour
         if (other.tag == "Player")
         {
             other.GetComponent<PlayerHealth>().Heal(healing);
-            Destroy(gameObject);
+            if (destroyOnInteract == true)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

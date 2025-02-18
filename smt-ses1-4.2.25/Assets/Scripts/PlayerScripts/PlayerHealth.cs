@@ -2,7 +2,12 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float playerMaxHealth = 100.0f, playerCurrentHealth = 0.0f, damageGate = 1.0f, damageGateTimer = 0.0f;
+    //all our variables
+    [SerializeField]private bool debug = false;
+    public float playerMaxHealth = 100.0f, playerCurrentHealth = 0.0f;
+    
+    //our damage gate timer
+    [SerializeField]private float damageGate = 1.0f, damageGateTimer = 0.0f;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -15,24 +20,37 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update()
     {
-        if (damageGateTimer < damageGate)
+        //ticks our timer up when the damage gate is active
+        if (damageGateTimer >= damageGate)
         {
             damageGateTimer += Time.deltaTime;
         }
     }
 
+    //player health script is referenced, and this function is called whenever the player is supposed to take damage
     public void PlayerTakeDamage(float damage)
     {
-        if (damageGateTimer >= damageGate)
+        //if our damage gate is active (active for ~1s after we take damage)
+        if (damageGateTimer <= damageGate)
         {
             playerCurrentHealth -= damage;
+            /*resets the damage gate timer after getting hit, because we can only take damage after our damage gate time
+             is high enough anyway.
+             */
             damageGateTimer = 0.0f;
 
+            //checks if our player is equal to or below one, meaning our player has died.
             if (playerCurrentHealth <= 0)
             {
-                Debug.Log("Player has died!");
+                //debug log for devs
+                if (debug == true)
+                {
+                    Debug.Log("Player has died!");
+                }
+                //any time this is called, update the health bar.
                 UIManager.instance.UpdateHealth(this);
-
+                
+                //disables our first person controller
                 GetComponent<FirstPersonController>().enabled = false;
 
             }
@@ -41,10 +59,13 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    //the heal function on our health bar
     public void Heal(float healing)
     {
+        //health ticks up by the healing value
         playerCurrentHealth += healing;
 
+        //prevents health overflow by setting any overflowed values to our max.
         if (playerCurrentHealth >= playerMaxHealth)
         {
             playerCurrentHealth = playerMaxHealth;
