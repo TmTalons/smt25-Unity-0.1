@@ -29,6 +29,7 @@ public class MeleeEnemy : MonoBehaviour
         //the position of this script object/class is equal to a the vector3's movetowards function
         //the arguments it takes are current position, the target's position, then the speed it should move towards the target
         transform.position = Vector3.MoveTowards(transform.position, playerTarget.position, (mySpeed * Time.deltaTime));
+        transform.LookAt(playerTarget); 
         
         //we make an attack when our attack timer is greater than our attack speed variable, AND when we are close enough
         if ((Vector3.Distance(transform.position, playerTarget.position) < 3.0f) && attackTimer > attackSpeed)

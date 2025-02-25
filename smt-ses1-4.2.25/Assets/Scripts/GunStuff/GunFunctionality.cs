@@ -49,13 +49,13 @@ public class GunFunctionality : MonoBehaviour
 
         }
         //if the gun is empty, and the reload timer is less than the full reload time, reload.
-        else if (bulletCountInMagazine == 0 && (reserveRounds != 0))
+        else if (bulletCountInMagazine == 0 && (reserveRounds >= 0))
         {
 
             reload();
 
         }
-        else if ((bulletCountInMagazine >= 0) && (bulletCountInMagazine < 40) && (Input.GetButton("Reload") == true) || reloading == true)
+        else if ((bulletCountInMagazine >= 0) && (bulletCountInMagazine < 40) && (Input.GetButton("Reload") == true) && reserveRounds >= 0 || reloading == true)
         {
             if (debug == true)
             {
@@ -78,6 +78,8 @@ public class GunFunctionality : MonoBehaviour
     public void refillBullets(int bullets)
     {
         reserveRounds += bullets;
+        strMagazine.text = bulletCountInMagazine.ToString();
+        strReserves.text = reserveRounds.ToString();
     }
 
     public void reload()
@@ -92,7 +94,14 @@ public class GunFunctionality : MonoBehaviour
             //adds the bullets from the outgoing mag to reserves
             reserveRounds += bulletCountInMagazine;
             //fills the magazine to full (magazineMax variable)
+            
+            
             bulletCountInMagazine = magazineMax;
+            
+            
+            
+                
+            
             //removes the amount of bullets from the fresh mag from reserves
             reserveRounds -= bulletCountInMagazine;
            

@@ -7,6 +7,6 @@ public class DartSpawnerScript : MonoBehaviour
     public void SpawnDart()
     {
         Debug.Log("Spawning dart...");
-        Instantiate(bulletType, transform.position, transform.rotation );
+        Instantiate(bulletType, transform.position, transform.rotation);
     }
 }
