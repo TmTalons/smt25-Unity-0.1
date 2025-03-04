@@ -15,6 +15,9 @@ public class FirstPersonController : MonoBehaviour
     private CharacterController controller;
     private Vector3 motion;
 
+    [SerializeField] private Camera mainCamera;
+    
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -24,6 +27,7 @@ public class FirstPersonController : MonoBehaviour
     void Start()
     {
         currentSpeed = speed;
+        
     }
 
     // Update is called once per frame
@@ -31,7 +35,13 @@ public class FirstPersonController : MonoBehaviour
     {
         motion = Vector3.zero;
 
-        if (controller.isGrounded == true)
+        if (Input.GetButtonDown("Interact"))
+        {
+            mainCamera.GetComponent<PlayerInteractionScript>().InteractionRay();
+
+        }
+
+            if (controller.isGrounded == true)
         {
             velocity = -gravity * Time.deltaTime;
 

@@ -5,6 +5,8 @@ public class PlayerHealth : MonoBehaviour
     //all our variables
     [SerializeField]private bool debug = false;
     public float playerMaxHealth = 100.0f, playerCurrentHealth = 0.0f;
+    public AudioClip healAudio, hurtAudio;
+    private AudioSource playerAudioSource;
     
     //our damage gate timer
     [SerializeField]private float damageGate = 1.0f, damageGateTimer = 0.0f;
@@ -13,6 +15,7 @@ public class PlayerHealth : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        playerAudioSource = GetComponent<AudioSource>();
         playerCurrentHealth = playerMaxHealth;
         //update the ui once
         UIManager.instance.UpdateHealth(this);
@@ -34,6 +37,8 @@ public class PlayerHealth : MonoBehaviour
         if (damageGateTimer <= damageGate)
         {
             playerCurrentHealth -= damage;
+
+            playerAudioSource.PlayOneShot(hurtAudio);
             /*resets the damage gate timer after getting hit, because we can only take damage after our damage gate time
              is high enough anyway.
              */
@@ -64,6 +69,8 @@ public class PlayerHealth : MonoBehaviour
     {
         //health ticks up by the healing value
         playerCurrentHealth += healing;
+
+        playerAudioSource.PlayOneShot(healAudio);
 
         //prevents health overflow by setting any overflowed values to our max.
         if (playerCurrentHealth >= playerMaxHealth)

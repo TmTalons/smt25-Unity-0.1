@@ -43,13 +43,20 @@ public class GunFunctionality : MonoBehaviour
             bulletCountInMagazine -= 1;
             //updates the bullet count on sreen
             strMagazine.text = bulletCountInMagazine.ToString();
-            strReserves.text = reserveRounds.ToString();
+            if (reserveRounds == 0)
+            {
+                strReserves.text = reserveRounds.ToString("No reserves!");
+            }
+            else
+            {
+                strReserves.text = reserveRounds.ToString();
+            }
             cRechamber = 0.0f;
 
 
         }
         //if the gun is empty, and the reload timer is less than the full reload time, reload.
-        else if (bulletCountInMagazine == 0 && (reserveRounds >= 0))
+        else if (bulletCountInMagazine == 0 && (reserveRounds > 0))
         {
 
             reload();
@@ -90,28 +97,57 @@ public class GunFunctionality : MonoBehaviour
 
 
         if (reloadT <= reloadTimeR)
-        { 
-            //adds the bullets from the outgoing mag to reserves
-            reserveRounds += bulletCountInMagazine;
-            //fills the magazine to full (magazineMax variable)
-            
-            
-            bulletCountInMagazine = magazineMax;
-            
-            
-            
+        {
+            if (reserveRounds > magazineMax)
+            {
+                //adds the bullets from the outgoing mag to reserves
+                reserveRounds += bulletCountInMagazine;
+                //fills the magazine to full (magazineMax variable)
+                bulletCountInMagazine = magazineMax;
+                //removes the amount of bullets from the fresh mag from reserves
+                reserveRounds -= bulletCountInMagazine;
                 
+            }
+            else if (reserveRounds < magazineMax && reserveRounds > 0)
+            {
+                if ((bulletCountInMagazine + reserveRounds) > magazineMax)
+                {
+                    //adds the bullets from the outgoing mag to reserves
+                    reserveRounds += bulletCountInMagazine;
+                    //fills the magazine to full (magazineMax variable)
+                    bulletCountInMagazine = magazineMax;
+                    //removes the amount of bullets from the fresh mag from reserves
+                    reserveRounds -= bulletCountInMagazine;
+                    
+                }
+                else
+                { 
+                    bulletCountInMagazine += reserveRounds;
+                    reserveRounds = 0;
+                }
+                
+
+                
+                UIManager.instance.UpdateReloadBar(this);
+            }
             
-            //removes the amount of bullets from the fresh mag from reserves
-            reserveRounds -= bulletCountInMagazine;
-           
+
             //reset the reload timer
             reloadTimeR = 0.0f;
             reloading = false;
 
             //updates the bullet count on screen
             strMagazine.text = bulletCountInMagazine.ToString();
-            strReserves.text = reserveRounds.ToString();
+
+            if (reserveRounds == 0)
+            {
+                strReserves.text = reserveRounds.ToString("No reserves!");
+            }
+            else 
+            {
+                strReserves.text = reserveRounds.ToString();
+            }
+            
             //calls the UIManager script/class to update our reload bar
             UIManager.instance.UpdateReloadBar(this);
 

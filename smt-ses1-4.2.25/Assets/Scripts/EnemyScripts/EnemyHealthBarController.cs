@@ -6,7 +6,7 @@ public class EnemyHealthBarController : MonoBehaviour
 
     public void EnemyUpdateHealth(PlayerHealth health)
     {
-        transform.localScale = new Vector3(, 0,0); 
+        transform.localScale = new Vector3(3, 0,0); 
 
     }
 }
