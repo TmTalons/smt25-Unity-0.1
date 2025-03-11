@@ -4,18 +4,22 @@ using UnityEngine.UI;
 public class GunFunctionality : MonoBehaviour
 {
     //bullets
-    /*Implementing the gun as full auto using rechambering speed*/
-    [SerializeField] private int bulletCountInMagazine = 40;
+    /*Implementing the gun as full auto using rechambering speed*/    
     [SerializeField] private Text strMagazine;
     [SerializeField] private Text strReserves;
     private bool reloading = false;
     private bool debug = false;
-
-    public float reloadT = 3.0f, bulletsRechamberingSpeed = 0.5f, cRechamber = 0.0f;
     public float reloadTimeR = 0.0f;
+
+
+    public int bulletCountInMagazine = 40;
+    public float reloadT = 3.0f, bulletsRechamberingSpeed = 0.5f, cRechamber = 0.0f;
+    
     public int reserveRounds = 160;
     public int magazineMax = 40;
     public GameObject bulletType;
+
+    public string gunType = "Assault Rifle";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

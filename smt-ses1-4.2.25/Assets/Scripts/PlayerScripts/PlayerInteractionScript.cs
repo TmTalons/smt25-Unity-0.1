@@ -6,6 +6,7 @@ public class PlayerInteractionScript : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private float interactionDistance = 3.0f;
     [SerializeField] private LayerMask layerMask;
+    private RaycastHit hit;
 
     public void InteractionRay()
     {
@@ -13,11 +14,15 @@ public class PlayerInteractionScript : MonoBehaviour
 
         Vector3 screenCentre = new Vector3(Screen.width / 2, Screen.height / 2, 0);
 
+        
+
         Ray ray = mainCamera.ScreenPointToRay(screenCentre);
 
-        if (Physics.Raycast(ray, interactionDistance, layerMask))
+        if (Physics.Raycast(ray, out hit, interactionDistance, layerMask))
         {
             Debug.Log("I hit something!");
+            hit.transform.gameObject.SendMessage("RayHit");
+            
         }
         
     }
