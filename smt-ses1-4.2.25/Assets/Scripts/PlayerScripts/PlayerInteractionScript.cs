@@ -20,7 +20,7 @@ public class PlayerInteractionScript : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, interactionDistance, layerMask))
         {
-            Debug.Log("I hit something!");
+        
             hit.transform.gameObject.SendMessage("RayHit");
             
         }

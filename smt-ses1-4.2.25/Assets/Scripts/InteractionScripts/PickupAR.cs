@@ -19,7 +19,7 @@ public class PickupAR : GunPickup
 
     public void RayHit()
     {
-        Debug.Log("An interaction was made.");
+
 
 
 

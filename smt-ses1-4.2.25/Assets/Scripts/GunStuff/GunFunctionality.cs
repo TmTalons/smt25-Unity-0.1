@@ -66,7 +66,7 @@ public class GunFunctionality : MonoBehaviour
             reload();
 
         }
-        else if ((bulletCountInMagazine >= 0) && (bulletCountInMagazine < 40) && (Input.GetButton("Reload") == true) && reserveRounds >= 0 || reloading == true)
+        else if ((bulletCountInMagazine >= 0) && (bulletCountInMagazine < magazineMax) && (Input.GetButton("Reload") == true) && reserveRounds >= 0 || reloading == true)
         {
             if (debug == true)
             {
@@ -112,7 +112,7 @@ public class GunFunctionality : MonoBehaviour
                 reserveRounds -= bulletCountInMagazine;
                 
             }
-            else if (reserveRounds < magazineMax && reserveRounds > 0)
+            else if (reserveRounds <= magazineMax && reserveRounds > 0)
             {
                 if ((bulletCountInMagazine + reserveRounds) > magazineMax)
                 {

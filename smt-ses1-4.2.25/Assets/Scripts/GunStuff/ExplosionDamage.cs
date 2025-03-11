@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 public class ExplosionDamage : MonoBehaviour
 {
-    private float damage = 100.0f, explodeSize = 60.0f, explosionTimer = 0.3f;
+    private float damage = 100.0f, explodeSize = 80.0f, explosionTimer = 0.15f;
     private Vector3 eScale = new Vector3(1, 1, 1);
 
 
@@ -28,7 +28,7 @@ public class ExplosionDamage : MonoBehaviour
     
     public void OnCollisionEnter(Collision other)
     {
-        Debug.Log("i hit something");
+        
         //runs if the other object has the player tag
         if (other.gameObject.tag == "Player")
         {

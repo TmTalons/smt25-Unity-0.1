@@ -21,7 +21,7 @@ public class PickupGL : GunPickup
 
     public void RayHit()
     {
-        Debug.Log("An interaction was made.");
+        
 
 
 

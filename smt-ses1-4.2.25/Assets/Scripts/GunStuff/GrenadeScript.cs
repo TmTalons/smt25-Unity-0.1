@@ -23,4 +23,9 @@ public class GrenadeScript : MonoBehaviour
             }
         }       
     }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        speed = 0.0f;
+    }
 }
