@@ -13,13 +13,14 @@ public class GunFunctionality : MonoBehaviour
 
 
     public int bulletCountInMagazine = 40;
-    public float reloadT = 2.5f, bulletsRechamberingSpeed = 0.35f, cRechamber = 0.0f;
+    public float reloadT = 2.5f, bulletsRechamberingSpeed = 0.35f, cRechamber = 0.0f, charge = 0.0f, maxCharge = 2.5f;
     
     public int reserveRounds = 180;
     public int magazineMax = 30;
     public GameObject bulletType;
 
     public string gunType = "Assault Rifle";
+    public string firingConfig = "Automatic";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,52 +38,125 @@ public class GunFunctionality : MonoBehaviour
         {
             cRechamber += Time.deltaTime;
         }
-        //checks if the firebutton has been clicked this frame AND if the bullets in the magazine are above 0
-        if ((Input.GetButton("Fire1") == true) && (bulletCountInMagazine > 0) && (cRechamber >= bulletsRechamberingSpeed))
-        {
 
-            //creates a new instance of the bullet type assigned to the script
-            Instantiate(bulletType, transform.position, transform.rotation);
-            //takes away a single bullet after firing
-            bulletCountInMagazine -= 1;
-            //updates the bullet count on sreen
-            strMagazine.text = bulletCountInMagazine.ToString();
-            if (reserveRounds == 0)
+        if (firingConfig == "Automatic")
+        {
+            //checks if the firebutton has been clicked this frame AND if the bullets in the magazine are above 0
+            if ((Input.GetButton("Fire1") == true) && (bulletCountInMagazine > 0) && (cRechamber >= bulletsRechamberingSpeed))
             {
-                strReserves.text = reserveRounds.ToString("No reserves!");
+
+                //the firing script
+                //creates a new instance of the bullet type assigned to the script
+                Instantiate(bulletType, transform.position, transform.rotation);
+                //takes away a single bullet after firing
+                bulletCountInMagazine -= 1;
+                //updates the bullet count on sreen
+                strMagazine.text = bulletCountInMagazine.ToString();
+                if (reserveRounds == 0)
+                {
+                    strReserves.text = reserveRounds.ToString("No reserves!");
+                }
+                else
+                {
+                    strReserves.text = reserveRounds.ToString();
+                }
+                cRechamber = 0.0f;
+
+
             }
-            else
+            //if the gun is empty, and the reload timer is less than the full reload time, reload.
+            else if (bulletCountInMagazine == 0 && (reserveRounds > 0))
             {
-                strReserves.text = reserveRounds.ToString();
+
+                reload();
+
             }
-            cRechamber = 0.0f;
-
-
-        }
-        //if the gun is empty, and the reload timer is less than the full reload time, reload.
-        else if (bulletCountInMagazine == 0 && (reserveRounds > 0))
-        {
-
-            reload();
-
-        }
-        else if ((bulletCountInMagazine >= 0) && (bulletCountInMagazine < magazineMax) && (Input.GetButton("Reload") == true) && reserveRounds >= 0 || reloading == true)
-        {
-            if (debug == true)
+            else if ((bulletCountInMagazine >= 0) && (bulletCountInMagazine < magazineMax) && (Input.GetButton("Reload") == true) && reserveRounds >= 0 || reloading == true)
             {
-                Debug.Log("Reloading");
+                if (debug == true)
+                {
+                    Debug.Log("Reloading");
+                }
+                reloading = true;
+                reload();
             }
-            reloading = true;
-            reload();
-        }
-        //checks if out of bullets
-        //checks if reserve rounds are 0 AND the current magazine count is 0
-        else if (reserveRounds == 0 && (bulletCountInMagazine == 0))
-        {
-            /*for future: make this flash red!*/
-            strMagazine.text = "No reserves!";
+            //checks if out of bullets
+            //checks if reserve rounds are 0 AND the current magazine count is 0
+            else if (reserveRounds == 0 && (bulletCountInMagazine == 0))
+            {
+                /*for future: make this flash red!*/
+                strMagazine.text = "No reserves!";
 
+            }
         }
+
+        if (firingConfig == "Charge")
+        {
+            if ((Input.GetButton("Fire1") == true) && (bulletCountInMagazine > 0) && (cRechamber >= bulletsRechamberingSpeed))
+            {
+                charge += Time.deltaTime;
+                UIManager.instance.UpdateChargeBar(this);
+            }
+            else if ((Input.GetButton("Fire1") == false) && (bulletCountInMagazine > 0) && (cRechamber >= bulletsRechamberingSpeed) && charge > 0)
+            {
+                charge -= Time.deltaTime;
+                UIManager.instance.UpdateChargeBar(this);
+            }
+            if (charge < 0)
+            { 
+                charge = 0;
+                UIManager.instance.UpdateChargeBar(this);
+            }
+
+            if (charge > maxCharge)
+            {
+                //the firing script
+                Instantiate(bulletType, transform.position, transform.rotation);
+                //takes away a single bullet after firing
+                bulletCountInMagazine -= 1;
+                //updates the bullet count on sreen
+                strMagazine.text = bulletCountInMagazine.ToString();
+                if (reserveRounds == 0)
+                {
+                    strReserves.text = reserveRounds.ToString("No reserves!");
+                }
+                else
+                {
+                    strReserves.text = reserveRounds.ToString();
+                }
+                cRechamber = 0.0f;
+                charge = 0.0f;
+                UIManager.instance.UpdateChargeBar(this);
+
+            }
+            //if the gun is empty, and the reload timer is less than the full reload time, reload.
+            else if (bulletCountInMagazine == 0 && (reserveRounds > 0))
+            {
+
+                reload();
+
+            }
+            else if ((bulletCountInMagazine >= 0) && (bulletCountInMagazine < magazineMax) && (Input.GetButton("Reload") == true) && reserveRounds >= 0 || reloading == true)
+            {
+                if (debug == true)
+                {
+                    Debug.Log("Reloading");
+                }
+                reloading = true;
+                reload();
+            }
+            //checks if out of bullets
+            //checks if reserve rounds are 0 AND the current magazine count is 0
+            else if (reserveRounds == 0 && (bulletCountInMagazine == 0))
+            {
+                /*for future: make this flash red!*/
+                strMagazine.text = "No reserves!";
+
+            }
+            
+        }
+        
+
 
     }
     //new function called refillBullets that refills bullets according to the bullets argument

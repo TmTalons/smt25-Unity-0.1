@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 public class ExplosionDamage : MonoBehaviour
 {
-    private float damage = 100.0f, explodeSize = 80.0f, explosionTimer = 0.15f;
+    private float damage = 100.0f, explodeSize = 120.0f, explosionTimer = 0.15f;
     private Vector3 eScale = new Vector3(1, 1, 1);
 
 

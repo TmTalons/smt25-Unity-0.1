@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class UIManager : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class UIManager : MonoBehaviour
     public Image healthBar;
     public Text healthText;
     public Image reloadBar;
+    public Text equippedGun;
+    public Image chargeBar;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
@@ -57,4 +60,9 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void UpdateChargeBar(GunFunctionality chargeAmount)
+    {
+        chargeBar.fillAmount = chargeAmount.charge / chargeAmount.maxCharge;
+        
+    }
 }
