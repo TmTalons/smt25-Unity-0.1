@@ -13,10 +13,10 @@ public class GunFunctionality : MonoBehaviour
 
 
     public int bulletCountInMagazine = 40;
-    public float reloadT = 3.0f, bulletsRechamberingSpeed = 0.5f, cRechamber = 0.0f;
+    public float reloadT = 2.5f, bulletsRechamberingSpeed = 0.35f, cRechamber = 0.0f;
     
-    public int reserveRounds = 160;
-    public int magazineMax = 40;
+    public int reserveRounds = 180;
+    public int magazineMax = 30;
     public GameObject bulletType;
 
     public string gunType = "Assault Rifle";
