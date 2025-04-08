@@ -1261,7 +1261,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &397275798
 Transform:
   m_ObjectHideFlags: 0
@@ -1792,10 +1792,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2710d4e8e8c0ddc4fa1269eeb8beddbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.08
-  gravity: 0.12
-  jumpForce: 0.25
-  gravPull: 15
+  speed: 0.05
+  gravity: 0.05
+  jumpForce: 0.07
+  gravPull: 30
   velocity: 0
   mainCamera: {fileID: 383278076}
 --- !u!114 &581337504
@@ -5218,6 +5218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   strMagazine: {fileID: 988646999}
   strReserves: {fileID: 1450337517}
+  equippedGun: {fileID: 1981905613}
   reloadTimeR: 0
   bulletCountInMagazine: 30
   reloadT: 2
@@ -5737,7 +5738,7 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: equipped gun
