@@ -5,7 +5,7 @@ public class PickupAR : GunPickup
     [SerializeField] private GameObject newBulletType, playersGun;
 
     private int newBulletCount = 30, newReserveRounds = 180, newMagazineMax = 30;
-    private float newReloadTime = 2.5f, newRechamberSpeed = 0.35f;
+    private float newReloadTime = 2.5f, newRechamberSpeed = 0.15f;
     private string newGunName = "Assault Rifle";
     private string firingConfiguration = "Automatic";
 

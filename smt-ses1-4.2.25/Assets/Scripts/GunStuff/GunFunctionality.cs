@@ -7,6 +7,7 @@ public class GunFunctionality : MonoBehaviour
     /*Implementing the gun as full auto using rechambering speed*/    
     [SerializeField] private Text strMagazine;
     [SerializeField] private Text strReserves;
+    [SerializeField] private Text equippedGun;
     private bool reloading = false;
     private bool debug = false;
     public float reloadTimeR = 0.0f;
@@ -34,6 +35,8 @@ public class GunFunctionality : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        equippedGun.text = gunType;
+
         if (cRechamber <= bulletsRechamberingSpeed)
         {
             cRechamber += Time.deltaTime;

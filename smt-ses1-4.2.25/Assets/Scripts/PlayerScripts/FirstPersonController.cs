@@ -5,13 +5,13 @@ using UnityEngine;
 public class FirstPersonController : MonoBehaviour
 {
     public float speed = 2.0f;
-    public float sprintSpeed = 5.0f;
-    public float gravity = 3.5f;
-    public float jumpForce = 0.1f;
+    //public float sprintSpeed = 5.0f;
+    public float gravity = 2.4f;
+    public float jumpForce = 0.08f;
     public float gravPull = 8.0f;
 
     private float currentSpeed = 0;
-    private float velocity = 0;
+    [SerializeField]private float velocity = 0;
     private CharacterController controller;
     private Vector3 motion;
 
@@ -27,36 +27,51 @@ public class FirstPersonController : MonoBehaviour
     void Start()
     {
         currentSpeed = speed;
+
+        InvokeRepeating("movementScript", 0.0f, 0.005f);
+
+    }
+
+    
+    void Update()
+    {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    void ApplyMovement()
+    {
+        motion += transform.forward * Input.GetAxisRaw("Vertical") * currentSpeed;
+        motion += transform.right * Input.GetAxisRaw("Horizontal") * currentSpeed;
+        motion.y += velocity;
+        controller.Move(motion);
+    }
+
+    void movementScript()
     {
         motion = Vector3.zero;
 
-        if (Input.GetButtonDown("Interact"))
+        if (Input.GetButton("Interact"))
         {
             mainCamera.GetComponent<PlayerInteractionScript>().InteractionRay();
 
         }
 
-            if (controller.isGrounded == true)
+        if (controller.isGrounded == true)
         {
-            velocity = -gravity * Time.deltaTime;
+            velocity = -gravity;
 
-            if (Input.GetKeyDown(KeyCode.Space) == true)
+            if (Input.GetKey(KeyCode.Space) == true)
             {
                 velocity = jumpForce;
             }
-            else if (Input.GetKeyDown(KeyCode.LeftShift) == true)
+            /*else if (Input.GetKeyDown(KeyCode.LeftShift) == true)
             {
                 //check to see speed is not equal to sprint speed
                 if (currentSpeed != sprintSpeed)
                 {
                     currentSpeed = sprintSpeed;
                 }
-            }
+            }*/
             else if (Input.GetKeyUp(KeyCode.LeftShift) == true)
             {
                 //change to walk speed
@@ -68,17 +83,10 @@ public class FirstPersonController : MonoBehaviour
         }
         else
         {
-            velocity -= (gravity * Time.deltaTime)/gravPull;
+            velocity -= (gravity) / gravPull;
+            Debug.Log(velocity);
         }
         ApplyMovement();
-    }
-
-    void ApplyMovement()
-    {
-        motion += transform.forward * Input.GetAxisRaw("Vertical") * currentSpeed * Time.deltaTime;
-        motion += transform.right * Input.GetAxisRaw("Horizontal") * currentSpeed * Time.deltaTime;
-        motion.y += velocity;
-        controller.Move(motion);
     }
 }
 
